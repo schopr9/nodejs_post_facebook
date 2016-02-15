@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/mycustom.css">
+        
+        <title>ECE9065 </title>
+        
+    </head>
+    <body ng-app="mainApp" >
+
+        <nav class="navbar navbar-inverse" >
+         <div class="row" >
+             <div class="col-md-6" >
+                   <a href='/' ><img src="images/western Eng Logo.png"></a>
+             </div>
+             <div class="col-md-4">
+                   <h2> ECE 9065</h2>
+             </div>
+             <div class="col-md-2" class="g-signin2" data-onsuccess="onSignIn" ng-controller='myCtrl'>
+               Welcome <%= user.profile.name %><img src=<%=  user.profile.picture %> alt="na" >
+                 <a  href="/logout"  ><img src="images/logout.png"  width="140" ></a>                
+             </div>
+         
+       
+
+
+         </div>        
+        </nav>
+
+        <div ng-view id="example1" ></div>
+     
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8//angular-route.min.js"></script>
+      <script type="text/javascript" src="js/app.js"></script>
+      <script type="text/javascript" src="js/controller.js"></script>
+      
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js">
+      </script>
+      <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer>
+      </script>
+          
+          
+
+    </body>
+</html>

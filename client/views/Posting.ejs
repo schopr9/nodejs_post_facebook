@@ -1,0 +1,54 @@
+<section >
+  <div  class="row">
+    <div class="col-md-4"   ng-controller="switchViews">
+         <select ng-model="multipleSelect" ng-change="someFunction()" class="dropdown-dark dropdown-select" value="Select a option1" >
+           <option style="display:none;" selected="" disabled="" value="">Select an option</option>
+           <option   value="/login" href="#/login" selected="selected" >Select a option1</option>
+          <option  value="/track" href="#/track">Select a option2</option>
+          <option  value="/comments" href="#/comments">Select a option3</option>
+          <option  value="/track" href="#/track">Select a option4</option>
+        </select>
+    </div>
+  </div>
+  
+
+
+   <div  class="row">
+       <div class="col-md-offset-3 col-md-4">
+            <div class="form-group">
+              <h1 > Posting </h1>
+              <textarea class="form-control" rows="5" id="comment" height="300px" width="300px" placeholder="Dummy text posting field"></textarea>
+            </div>
+
+            <button type="button" class="btn btn-primary btn-md">Create Post</button>
+            <button type="button" class="btn btn-primary btn-md">Delete Post</button>
+
+       </div>
+
+        <div class="col-md-4">
+             <div class="checkbox">
+              <label><input type="checkbox" value="">Option 1</label>
+              <button type="button" class="btn btn-primary btn-md">select source</button>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 2</label>
+              <button type="button" class="btn btn-primary btn-md">select source</button>
+            </div>
+            <div class="checkbox ">
+              <label><input type="checkbox" value="" disabled>Option 3</label>
+              <button type="button" class="btn btn-primary btn-md">select source</button>
+            </div>
+        </div>
+
+    </div>    
+    
+
+
+
+    
+
+
+    <br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br>
+
+</section>

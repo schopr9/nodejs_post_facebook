@@ -1,0 +1,49 @@
+
+<section id="example1">
+ 
+    
+    <div    ng-controller="switchViews">
+         <select ng-model="multipleSelect" ng-change="someFunction()" class="dropdown-dark dropdown-select">
+          <option style="display:none;" selected="" disabled="" value="">Select an option</option>
+          <option  value="/login" href="#/login" >Select a option1</option>
+          <option  value="/track" href="#/track">Select a option2</option>
+          <option  value="/comments" href="#/comments">Select a option3</option>
+          <option  value="/track" href="#/track">Select a option4</option>
+        </select>
+    </div>
+ 
+
+
+
+    <div  class="row">
+        <div class="col-md-offset-3 col-md-4">
+            <h1> {Post title}</h1>
+            <h1> Comments </h1>
+           <div class="form-group">
+              <label for="comment">Comment:</label>
+              <textarea class="form-control" rows="5"  id="posts" height="300px" width="300px" placeholder="Dummy text posting field"></textarea>
+            </div>
+
+        
+        </div>
+
+        <div class="col-md-4">
+             <div class="checkbox">
+              <label><input type="checkbox" value="">Option 1</label>
+              <button type="button" class="btn btn-primary btn-md">select source</button>
+            </div>
+            <div class="checkbox">
+              <label><input type="checkbox" value="">Option 2</label>
+              <button type="button" class="btn btn-primary btn-md">select source</button>
+            </div>
+            <div class="checkbox disabled">
+              <label><input type="checkbox" value="" disabled>Option 3</label>
+              <button type="button" class="btn btn-primary btn-md">select source</button>
+            </div>
+        </div>
+
+    </div>    
+
+    <br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br>
+</section>

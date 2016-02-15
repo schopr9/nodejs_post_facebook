@@ -1,0 +1,27 @@
+{
+  "name": "chat-example",
+  "version": "0.0.0",
+  "description": "ece9065 lab2 ",
+  "main": "server.js",
+  "repository": "",
+  "author": "saurabh chopra",
+  "dependencies": {
+    "async": "~0.2.8",
+    "bcrypt": "~0.8.1",
+    "body-parser": "latest",
+    "connect-flash": "~0.1.1",
+    "cookie-parser": "latest",
+    "ejs": "latest",
+    "express": "~4.12.3",
+    "express-session": "latest",
+    "mongoose": "latest",
+    "morgan": "~1.5.2",
+    "passport": "~0.2.1",
+    "passport-facebook": "~2.0.0",
+    "passport-google-oauth": "~0.2.0",
+    "passport-http-bearer": "^1.0.1",
+    "passport-local": "~1.0.0",
+    "rand-token": "^0.2.1",
+    "socket.io": "~0.9.14"
+  }
+}
