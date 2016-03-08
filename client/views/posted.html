@@ -1,0 +1,39 @@
+<div id='mainSection'>
+
+  <div  class="row">
+    <div class="col-md-4"   ng-controller="switchViews">
+         <select ng-model="multipleSelect" ng-change="someFunction()" class="dropdown-dark dropdown-select" value="Select a option1" >
+           <option style="display:none;" selected="" disabled="" value="">Select an option</option>
+           <option   value="/login" href="#/login" selected="selected" >Select a option1</option>
+          <option  value="/track" href="#/track">Select a option2</option>
+          <option  value="/comments" href="#/comments">Select a option3</option>
+          <option  value="/allPosts" href="#/track">Select a option4</option>
+        </select>
+    </div>
+  </div>
+
+    <div id="subSection2" class="col-sm-offset-2 col-sm-6" ng-controller="allPosts" >
+        <button ng-click="add()"> Add new post</button>
+        <center><h1>All Posts</h1></center>
+        <table class="table whitetable">
+            <tbody >
+            <tr><td colSpan="5"><center><h3 ng-model="message">Message:  {{message}}</h3></center></td></tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Post Body</td>
+                <td>Post Date</td>
+                <td><!--button type="submit" ng-click="add()" >Add</button--></td>
+            </tr>
+            <tr ng-repeat="post in posts">
+                <td><button type="submit" ng-click="edit(post._id)" >Edit</button></td>
+                <td><button type="submit" ng-click="delete(post._id)" >Delete</button></td>
+                <td class="limitPostBody">{{ post.postBody }}</td>
+                <td>{{ post.postDate }}</td>
+                <td><button type="submit" ng-click="manageComment(post._id)" >Comments</button></td>
+            </tr>
+            </tbody>
+        </table>    
+    </div>
+</div>
+

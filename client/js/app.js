@@ -17,7 +17,8 @@ mainApp.config(['$routeProvider',
        
     }).
       when('/track', {
-        templateUrl: '/views/Post_tracking.html'
+        templateUrl: '/views/Post_tracking.html',
+        controller: 'trackedpost'
         
        
     }).
@@ -25,6 +26,10 @@ mainApp.config(['$routeProvider',
         templateUrl: '/views/Post_comments.html'
         
        
+    }).
+      when('/allPosts', {
+      templateUrl: "views/posted.html",
+      controller: 'allPosts'
     }).
     otherwise({
         redirectTo: '/'

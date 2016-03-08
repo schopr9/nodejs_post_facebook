@@ -2,9 +2,9 @@
 <html>
     <head>
         
+        
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
         <link rel="stylesheet" href="css/mycustom.css">
-        
         <title>ECE9065 </title>
         
     </head>
@@ -20,16 +20,17 @@
              </div>
              <div class="col-md-2" class="g-signin2" data-onsuccess="onSignIn" ng-controller='myCtrl'>
                Welcome <%= user.profile.name %><img src=<%=  user.profile.picture %> alt="na" >
+               <div id="email" ><%= user.email %></div>
                  <a  href="/logout"  ><img src="images/logout.png"  width="140" ></a>                
              </div>
          
        
 
-
+        
          </div>        
         </nav>
 
-        <div ng-view id="example1" ></div>
+        <div ng-view  ></div>
      
       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
       <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8//angular-route.min.js"></script>

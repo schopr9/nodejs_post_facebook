@@ -6,23 +6,27 @@
            <option   value="/login" href="#/login" selected="selected" >Select a option1</option>
           <option  value="/track" href="#/track">Select a option2</option>
           <option  value="/comments" href="#/comments">Select a option3</option>
-          <option  value="/track" href="#/track">Select a option4</option>
+          <option  value="/allPosts" href="#/track">Select a option4</option>
         </select>
     </div>
   </div>
   
-
-
+{{user.email}}
    <div  class="row">
        <div class="col-md-offset-3 col-md-4">
-            <div class="form-group">
+  
+
+         <form ng-controller='Listcontroller' >
+            <div class="form-group" ng-controller='Listcontroller' >
               <h1 > Posting </h1>
-              <textarea class="form-control" rows="5" id="comment" height="300px" width="300px" placeholder="Dummy text posting field"></textarea>
-            </div>
-
-            <button type="button" class="btn btn-primary btn-md">Create Post</button>
+              <textarea ng-model="postdata" class="form-control" rows="5" id="comment" name="postdata" height="300px" width="300px" placeholder="Dummy text posting field"></textarea>
+            
+            <button type="button" class="btn btn-primary btn-md"  ng-click='search()'>Create Post</button>
             <button type="button" class="btn btn-primary btn-md">Delete Post</button>
+            {{postdata}}
+        </form>
 
+        </div>
        </div>
 
         <div class="col-md-4">

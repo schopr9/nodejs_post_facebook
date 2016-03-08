@@ -22,50 +22,40 @@ var userSchema = new mongoose.Schema({
     website: { type: String, default: '' },
     picture: { type: String, default: '' }
   },
+  
+      post: [{ 
+            postBody: {type: String, default: ' ' },
+            postDate : Date,
+            comment: [{
+                commentBody : {type: String, default: ' ' },
+                commentEmail: String,
+                commentDate : Date
+            }]
+    }],
+
 
   resetPasswordToken: String,
   resetPasswordExpires: Date
 });
 
-var tokenSchema = mongoose.Schema({
-	value: String,
-	user: {
-		type: Schema.Types.ObjectId,
-		ref: 'User'
-	},
-	expireAt: {
-		type: Date,
-		expires: 60,
-		default: Date.now
-	}
+
+var postschema = new mongoose.Schema({
+    title: { type: String, required: true },
+    tags: [ {type: String} ],
+    is_published: { type: Boolean, default: false },
+    content: { type: String, required: true },
+    created: { type: Date, default: Date.now },
+    updated: { type: Date, default: Date.now },
+    read: { type: Number, default: 0 },
+    likes: { type: Number, default: 0 },
+    email: String
 });
 
-userSchema.methods.generateToken = function(){
-	var token = new Token();
-	token.value = randtoken.generate(32);
-	token.user = this._id;
-	this.token = token._id;
-	this.save(function(err){
-		if(err)
-			throw err;
-		token.save(function(err){
-			if(err)
-				throw err;
-		});
-	});
-}
 
-userSchema.methods.generateHash = function(password){
-	return bcrypt.hashSync(password, bcrypt.genSaltSync(9));
-}
-
-userSchema.methods.validPassword = function(password){
-	return bcrypt.compareSync(password, this.local.password);
-}
 
 var User = mongoose.model('User', userSchema);
-var Token = mongoose.model('Token', tokenSchema);
-var Models = { User: User, Token: Token };
+//var Post = mongoose.model('Post', postSchema);
+var Models = { User: User };
 
 module.exports = Models;
 

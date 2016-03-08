@@ -1,5 +1,5 @@
 
-<section id="example1">
+<section >
  <div  class="row">
     
     <div class="col-md-4"   ng-controller="switchViews"  >
@@ -8,20 +8,22 @@
           <option  value="/login" href="#/login">Select a option1</option>
           <option  value="/track" href="#/track">Select a option2</option>
           <option  value="/comments" href="#/comments">Select a option3</option>
-          <option  value="/track" href="#/track">Select a option4</option>
+          <option  value="/allPosts" href="#/track">Select a option4</option>
         </select>
     </div>
   </div>
 
   
-      <div  class="row">
+      <div  class="row" ng-controller="trackedpost">
         <div class="col-md-offset-3 col-md-4">
            <div class="form-group">
                <h1 > Tracked Posts</h1>
+               
               <label for="comment">Comment:</label>
-              <textarea class="form-control" rows="5"  id="comment" height="300px" width="300px" placeholder="list of available tracked posts"></textarea>
+              <textarea class="form-control" rows="5"  id="comment" height="300px" width="300px" placeholder="list of available tracked posts" ng-model="postBody">{{postBody}}</textarea>
+              <button type="submit" ng-click="updatePost()" >Update post</button>
             </div>
-
+                
             
         </div>
 
