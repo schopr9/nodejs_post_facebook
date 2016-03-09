@@ -23,7 +23,8 @@ mainApp.config(['$routeProvider',
        
     }).
       when('/comments', {
-        templateUrl: '/views/Post_comments.html'
+        templateUrl: '/views/Post_comments.html',
+        controller: 'postcomments'
         
        
     }).

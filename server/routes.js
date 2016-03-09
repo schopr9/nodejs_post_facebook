@@ -116,16 +116,14 @@ module.exports = function(app, passport){
 	
 	//create a comment
 	app.post('/api/comment/', function(req, res) {
-	    console.log(req.body);
+	   
 	    User.findOne({'email':req.body.email},function(err,user){
 	        if(!err  ) {
 	            var post = user.post.id(req.body.postID);
-	            console.log(post.postBody + " is found" );
 	            if(post != null)
 	            {
-	                post.comment.push({ "commentBody":req.body.commentBody,
-	                                    "commentDate": Date.now()});
-	                var lastCommentID = post.comment[post.comment.length-1]._id;
+	                post.comment.push({ commentBody:req.body.commentdata,
+	                                    commentDate: Date.now()});
 	                user.save(function (err) {
 	                        if(!err) 
 	                            res.json({"status":"success"});
@@ -165,7 +163,7 @@ module.exports = function(app, passport){
 	            var comment = post.comment.id(req.params.id);
 	            if(comment != null)
 	            {
-	                comment.commentBody = req.body.commentBody;
+	                comment.commentBody = req.body.commentdata;
 	                user.save(function (err) {
 	                    if(!err) 
 	                        res.json({"status":"success"});
@@ -184,7 +182,7 @@ module.exports = function(app, passport){
 	//delete a comment by post id & id
 	app.delete('/api/comment/:postID/:id', function(req, res) {
 	    User.findOne({'post._id':req.params.postID},function(err,user){
-	        if(!err  ) {
+	        if(!err) {
 	            var post = user.post.id(req.params.postID);
 	            var comment = post.comment.id(req.params.id);
 	            if(comment != null)
@@ -216,26 +214,7 @@ module.exports = function(app, passport){
 	    });
 	});
 	
-	//delete all post by email
-	app.delete('/api/allposts/:email', function(req, res) {
-	    console.log(req.params.email + " deleted all post");
-	    User.findOne({'email':req.params.email},function(err,user){
-	        if(!err  ) {
-	            user.post.forEach(function(singlePost){
-	                user.post.remove(singlePost);
-	            });
-	            user.save(function (err) {
-	              if(!err) 
-	                    res.json({ "status":"success"});
-	              else
-	                    res.json({ "status":"failed"});
-	            });
-	        }
-	        else
-	            res.json({ "status":"failed"});
-	    });
-	});
-	
+
 	//get all comment by postID
 	app.get('/api/allComments/:id',function(req,res){
 	    User.findOne({'post._id':req.params.id},function(err,user){

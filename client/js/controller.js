@@ -61,8 +61,8 @@ mainApp.controller('switchViews',['$scope','$location', function($scope,$locatio
 //    }]);
 
 
-// create a new post
-mainApp.controller('Listcontroller', function($rootScope,$scope,$http,$timeout,$location){
+
+mainApp.controller('Listcontroller', function($rootScope,$scope,$http,$location){// create a new post
         
         $scope.search = function() {
 //            $scope.formData.email = $scope.email;
@@ -81,51 +81,12 @@ mainApp.controller('Listcontroller', function($rootScope,$scope,$http,$timeout,$
         };
 });
 
-// update a post
-mainApp.controller('trackedpost', function($rootScope,$scope,$http,$timeout,$location, $routeParams){
-    var postID = $routeParams.id;
-    var email = $routeParams.email;
-    currentEmail = email;
-    if(postID === undefined || email === undefined)
-        $scope.message = "PostID & email is not defined!";
-    $http({
-            method: 'GET',
-            url: "api/post/" + email + "/" + postID
-        }).then(function (response) {
-            console.log(response.data);
-            $scope.postBody = response.data.postBody;
-            $scope.email = email;
-            $scope.postID = postID;
-        });
-        
-    $scope.updatePost = function() {
-            console.log("updatePost");
 
-            $http.put("/api/post/"+$scope.email+"/" + $scope.postID, {"postBody": $scope.postBody})
-                .then(function (response) {
-                    if(response.data.error)
-                        $scope.message = "An error happened on server.";
-                    else
-                    {
-                        
-                        $scope.message = "Post is updated successfully.";
-                        console.log(response.data);
-                        $location.path('allPosts').search({message: 'Post is updated successfully' });
-                    }
-                });
-        };
-});
 
-// track all post
-mainApp.controller('allPosts', function($rootScope,$scope,$http,$timeout,$location, $routeParams){
-//    console.log("get all post from "+ currentEmail);
+
+mainApp.controller('allPosts', function($rootScope,$scope,$http,$location, $routeParams){// track post
     var currentEmail = document.getElementById('email').innerHTML;
     $scope.message = $routeParams.message;
-    if(currentEmail === undefined)
-        if(currentEmail2 === undefined)
-            $location.path("/login");
-        else
-            currentEmail = currentEmail2;
     if(currentEmail.length <= 0)
         $location.path('/login/');
     else    
@@ -167,13 +128,39 @@ mainApp.controller('allPosts', function($rootScope,$scope,$http,$timeout,$locati
     };
 });
 
-mainApp.controller('specificpost', function($rootScope,$scope,$http,$timeout,$location, $routeParams){
+mainApp.controller('trackedpost', function($rootScope,$scope,$http,$location, $routeParams){// update a post
+    var postID = $routeParams.id;
+    var email = $routeParams.email;
+    $http({
+            method: 'GET',
+            url: "api/post/" + email + "/" + postID
+        }).then(function (response) {
+            console.log(response.data);
+            $scope.postBody = response.data.postBody;
+            $scope.email = email;
+            $scope.postID = postID;
+        });
+        
+    $scope.updatePost = function() {
+
+            $http.put("/api/post/"+$scope.email+"/" + $scope.postID, {"postBody": $scope.postBody})
+                .then(function (response) {
+                    if(response.data.error)
+                        $scope.message = "error happened on server.";
+                    else
+                    {
+                        
+                        $scope.message = "Post is updated successfully.";
+                        $location.path('allPosts').search({message: 'Post is updated successfully' });
+                    }
+                });
+        };
+});
+
+mainApp.controller('postcomments', function($rootScope,$scope,$http,$location, $routeParams){
     $scope.postID= $routeParams.id;
     $scope.email = $routeParams.email;
-    currentEmail = $scope.email ;
-    if($scope.postID === undefined || $scope.email === undefined)
-        $scope.message = "PostID & email is not defined!";
-    // get the post along its comments
+    
     $http({
             method: 'GET',
             url: "api/post/" + $scope.email + "/" + $scope.postID
@@ -184,15 +171,13 @@ mainApp.controller('specificpost', function($rootScope,$scope,$http,$timeout,$lo
         });
         
     $scope.add = function() {
-        $scope.formData.email = $scope.email;
-        $scope.formData.postID = $scope.postID;
-        $http.post('/api/comment/', $scope.formData)
+        $http.post('/api/comment/',  { commentdata: $scope.commentdata, email: $scope.email, postID : $scope.postID })
             .then(function (response) {
                 if(response.data.error)
-                    $scope.message =  "an error happen on the server while adding the comment";
+                    $scope.message =  "error adding the comment";
                 else
                 {
-                    $scope.message = "The comment is added successfully";
+                    $scope.message = "comment is added successfully";
                     // get the post's comments
                     $http({
                             method: 'GET',
@@ -200,7 +185,7 @@ mainApp.controller('specificpost', function($rootScope,$scope,$http,$timeout,$lo
                         }).then(function (response) {
                             console.log(response);
                             $scope.comments = response.data;
-                            $scope.formData.commentBody = "";
+                            $scope.commentdata = "";
                         });
                 }
             });
@@ -216,7 +201,7 @@ mainApp.controller('specificpost', function($rootScope,$scope,$http,$timeout,$lo
         $http.put("/api/comment/"+$scope.postID+"/" + comment._id, {"commentBody": comment.commentBody})
         .then(function (response) {
             if(response.data.error)
-                $scope.message = "An error happened on server during updating the comment.";
+                $scope.message = "error updating the comment.";
             else
             {
                 $scope.message = "comment is updated successfully.";
@@ -227,7 +212,6 @@ mainApp.controller('specificpost', function($rootScope,$scope,$http,$timeout,$lo
     
 
     $scope.delete = function(_id) {
-        console.log(_id);
         $http({
             method: 'Delete',
             url: "api/comment/" + $scope.postID + "/" +_id

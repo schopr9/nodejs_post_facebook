@@ -28,7 +28,7 @@
             <tr ng-repeat="post in posts">
                 <td><button type="submit" ng-click="edit(post._id)" >Edit</button></td>
                 <td><button type="submit" ng-click="delete(post._id)" >Delete</button></td>
-                <td class="limitPostBody">{{ post.postBody }}</td>
+                <td >{{ post.postBody }}</td>
                 <td>{{ post.postDate }}</td>
                 <td><button type="submit" ng-click="manageComment(post._id)" >Comments</button></td>
             </tr>
