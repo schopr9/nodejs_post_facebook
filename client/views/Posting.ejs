@@ -3,15 +3,14 @@
     <div class="col-md-4"   ng-controller="switchViews">
          <select ng-model="multipleSelect" ng-change="someFunction()" class="dropdown-dark dropdown-select" value="Select a option1" >
            <option style="display:none;" selected="" disabled="" value="">Select an option</option>
-           <option   value="/login" href="#/login" selected="selected" >Select a option1</option>
-          <option  value="/track" href="#/track">Select a option2</option>
-          <option  value="/comments" href="#/comments">Select a option3</option>
-          <option  value="/allPosts" href="#/track">Select a option4</option>
+           <option   value="/login" href="#/login" selected="selected" >Create a post</option>
+          <option  value="/track" href="#/track">edit a post</option>
+          <option  value="/comments" href="#/comments">post and comments</option>
+          <option  value="/allPosts" href="#/track">Track all posts</option>
         </select>
     </div>
   </div>
   
-{{user.email}}
    <div  class="row">
        <div class="col-md-offset-3 col-md-4">
   
@@ -23,7 +22,7 @@
             
             <button type="button" class="btn btn-primary btn-md"  ng-click='search()'>Create Post</button>
             <button type="button" class="btn btn-primary btn-md">Delete Post</button>
-            {{postdata}}
+
         </form>
 
         </div>

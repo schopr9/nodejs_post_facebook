@@ -2,16 +2,17 @@
 <section >
  
     
-    <div    ng-controller="switchViews">
-         <select ng-model="multipleSelect" ng-change="someFunction()" class="dropdown-dark dropdown-select">
-          <option style="display:none;" selected="" disabled="" value="">Select an option</option>
-          <option  value="/login" href="#/login" >Select a option1</option>
-          <option  value="/track" href="#/track">Select a option2</option>
-          <option  value="/comments" href="#/comments">Select a option3</option>
-          <option  value="/allPosts" href="#/track">Select a option4</option>
+  <div  class="row">
+    <div class="col-md-4"   ng-controller="switchViews">
+         <select ng-model="multipleSelect" ng-change="someFunction()" class="dropdown-dark dropdown-select" value="Select a option1" >
+           <option style="display:none;" selected="" disabled="" value="">Select an option</option>
+           <option   value="/login" href="#/login" selected="selected" >Create a post</option>
+          <option  value="/track" href="#/track">edit a post</option>
+          <option  value="/comments" href="#/comments">post and comments</option>
+          <option  value="/allPosts" href="#/track">Track all posts</option>
         </select>
     </div>
- 
+  </div>
 
 
 
@@ -29,7 +30,7 @@
                 
                 </tr>
                 <tr ng-repeat="comment in comments">
-                    <td><button type="submit" ng-click="delete(comment._id)" >Delete</button></td>
+                    <td><button type="submit" class="btn btn-danger btn-md" ng-click="delete(comment._id)" >Delete</button></td>
                     <td >{{ comment.commentBody }}</td>
                     <td>{{ comment.commentDate }}</td>
                     
