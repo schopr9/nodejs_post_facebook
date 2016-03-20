@@ -191,25 +191,7 @@ mainApp.controller('postcomments', function($rootScope,$scope,$http,$location, $
             });
     };
           
-    $scope.edit = function(comment) {
-        console.log(comment);
-        console.log("is editing");
-    };
-    $scope.save = function(comment) {
-        console.log(comment);
-        //$scope.editing = $scope.comments.indexOf(comment);
-        $http.put("/api/comment/"+$scope.postID+"/" + comment._id, {"commentBody": comment.commentBody})
-        .then(function (response) {
-            if(response.data.error)
-                $scope.message = "error updating the comment.";
-            else
-            {
-                $scope.message = "comment is updated successfully.";
-                console.log(response.data);
-            }
-        });
-    };
-    
+
 
     $scope.delete = function(_id) {
         $http({

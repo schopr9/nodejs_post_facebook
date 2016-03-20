@@ -10,14 +10,9 @@ module.exports = function(app, passport){
 	app.get('/signup', function(req, res){
 		res.render('signup.ejs');
 	});
-
-
-
-
 	
 	app.get('/auth/google', passport.authenticate('google',	{ scope: 'profile email' }));
 	app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/' }), function(req, res) {
-	//  return res.json( {user: req.user});
 		res.redirect('/profile');  
 	});
 
@@ -49,8 +44,6 @@ module.exports = function(app, passport){
 	
 	
 	app.get('/api/post/:email/:id', function(req, res) {//get a post by id
-	    console.log(req.params.id);
-	    console.log(req.params.email);
 	    User.findOne({'email':req.params.email},function(err,user){
 	        if(!err  ) {
 	            var post = user.post.id(req.params.id);
@@ -64,9 +57,8 @@ module.exports = function(app, passport){
 	    });
 	});
 	
-	//update a post by id & email
+	//update a post 
 	app.put('/api/post/:email/:id', function(req, res) {
-	    console.log(req.body);
 	    User.findOne({'email':req.params.email},function(err,user){
 	        if(!err  ) {
 	            var post = user.post.id(req.params.id);
@@ -89,10 +81,8 @@ module.exports = function(app, passport){
 	    });
 	});
 	
-	//delete a post by id & email
+	//delete a post 
 	app.delete('/api/post/:email/:id', function(req, res) {
-	    console.log(req.params.id);
-	    console.log(req.params.email);
 	    User.findOne({'email':req.params.email},function(err,user){
 	        if(!err  ) {
 	            var post = user.post.id(req.params.id);
@@ -139,7 +129,7 @@ module.exports = function(app, passport){
 	    });
 	});
 	
-	//get a commeny by id
+	//get a commeny 
 	app.get('/api/comment/:postID/:id', function(req, res) {
 	    User.findOne({'post._id':req.params.postID},function(err,user){
 	        if(!err  ) {
@@ -155,7 +145,7 @@ module.exports = function(app, passport){
 	    });
 	});
 	
-	//update a comment by postID & id
+	//update a comment 
 	app.put('/api/comment/:postID/:id', function(req, res) {
 	    User.findOne({'post._id':req.params.postID},function(err,user){
 	        if(!err  ) {
@@ -179,7 +169,7 @@ module.exports = function(app, passport){
 	    });
 	});
 	
-	//delete a comment by post id & id
+	//delete a comment
 	app.delete('/api/comment/:postID/:id', function(req, res) {
 	    User.findOne({'post._id':req.params.postID},function(err,user){
 	        if(!err) {
@@ -204,7 +194,6 @@ module.exports = function(app, passport){
 	    });
 	});
 	
-	//get all posts by email
 	app.get('/api/allposts/:email',function(req,res){
 	    User.findOne({'email':req.params.email},function(err,user){
 	        if(err)
@@ -215,8 +204,8 @@ module.exports = function(app, passport){
 	});
 	
 
-	//get all comment by postID
-	app.get('/api/allComments/:id',function(req,res){
+	
+	app.get('/api/allComments/:id',function(req,res){//get all comment by postID
 	    User.findOne({'post._id':req.params.id},function(err,user){
 	        if(err)
 	            res.json({"status" : "failed"});
@@ -226,7 +215,6 @@ module.exports = function(app, passport){
 	        }
 	    });
 	});
-	
 
 	app.get('/profile', isLoggedIn, function(req, res){
 		res.render('login.ejs', { user: req.user });
