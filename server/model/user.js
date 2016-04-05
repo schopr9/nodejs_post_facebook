@@ -9,12 +9,13 @@ var userSchema = new mongoose.Schema({
   facebook: String,
   twitter: String,
   google: String,
-  github: String,
-  instagram: String,
   linkedin: String,
-  steam: String,
   tokens: Array,
-
+  twitterToken: String,
+  twitterSecret: String,
+  facebookToken: String,
+  linkedinToken: String,
+  
   profile: {
     name: { type: String, default: '' },
     gender: { type: String, default: '' },
@@ -26,6 +27,10 @@ var userSchema = new mongoose.Schema({
       post: [{ 
             postBody: {type: String, default: ' ' },
             postDate : Date,
+            postID : String,
+            twitterPostID: String,
+            linkedinPostID: String,
+            postKind : String,
             comment: [{
                 commentBody : {type: String, default: ' ' },
                 commentEmail: String,

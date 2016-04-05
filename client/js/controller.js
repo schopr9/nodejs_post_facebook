@@ -64,9 +64,16 @@ mainApp.controller('switchViews',['$scope','$location', function($scope,$locatio
 
 mainApp.controller('Listcontroller', function($rootScope,$scope,$http,$location){// create a new post
         
+        
+
+
         $scope.search = function() {
+            
 //            $scope.formData.email = $scope.email;
-            $http.post('/api/post/',  { postdata: $scope.postdata, email: document.getElementById('email').innerHTML })
+            $http.post('/api/post/',  { postdata: $scope.postdata,facebookID: window.facebookID,facebookToken : window.facebookToken
+                                        , email: document.getElementById('email').innerHTML , facebookCheck : $scope.connectFacebook
+                                        , twitterCheck: $scope.connectTwitter , linkedinCheck: $scope.connectLinkedin
+                                                            })
                 .then(function (response) {
                     if(response.data.error)
                         alert("an error happen on server");
@@ -100,15 +107,16 @@ mainApp.controller('allPosts', function($rootScope,$scope,$http,$location, $rout
     $scope.add = function() {
         $location.path('/login');
     };
-    $scope.edit = function(_id) {
+    $scope.edit = function(_id,postID) {
         console.log(_id);
-        $location.path('/track/').search({id:_id, email:currentEmail});
+        $location.path('/track/').search({id:_id, email:currentEmail,postid: postID});
     };
-    $scope.delete = function(_id) {
-        console.log(_id);
+    $scope.delete = function(_id,postID,twitterPostID) {
+        console.log(postID);
         $http({
             method: 'Delete',
-            url: "api/post/"+ currentEmail +"/" + _id
+            url: "api/post/"+ currentEmail +"/" + _id,
+            params: {email: currentEmail, postid: postID, token: window.facebookToken, twitterPId : twitterPostID}
         }).then(function (response) {
             console.log(response.data);
             if(!response.data.error)
@@ -122,15 +130,16 @@ mainApp.controller('allPosts', function($rootScope,$scope,$http,$location, $rout
             }
         });
     };
-    $scope.manageComment = function(_id) {
+    $scope.manageComment = function(_id,postID,twitterPostID) {
         console.log(_id);
-        $location.path('/comments/').search({id:_id, email:currentEmail});
+        $location.path('/comments/').search({id:_id, email:currentEmail,fPostId: postID, tPostId: twitterPostID});
     };
 });
 
 mainApp.controller('trackedpost', function($rootScope,$scope,$http,$location, $routeParams){// update a post
     var postID = $routeParams.id;
     var email = $routeParams.email;
+    var postid = $routeParams.postid;
     $http({
             method: 'GET',
             url: "api/post/" + email + "/" + postID
@@ -138,12 +147,18 @@ mainApp.controller('trackedpost', function($rootScope,$scope,$http,$location, $r
             console.log(response.data);
             $scope.postBody = response.data.postBody;
             $scope.email = email;
-            $scope.postID = postID;
+            $scope.postID = postid;
+            $scope.id = response.data._id
         });
         
     $scope.updatePost = function() {
 
-            $http.put("/api/post/"+$scope.email+"/" + $scope.postID, {"postBody": $scope.postBody})
+            $http({
+            method: 'put',
+            url: "/api/post/"+$scope.email+"/" + $scope.id,
+            data: {"postBody": $scope.postBody, postid : $scope.postID, token: window.facebookToken}
+   
+                })
                 .then(function (response) {
                     if(response.data.error)
                         $scope.message = "error happened on server.";
@@ -160,7 +175,7 @@ mainApp.controller('trackedpost', function($rootScope,$scope,$http,$location, $r
 mainApp.controller('postcomments', function($rootScope,$scope,$http,$location, $routeParams){
     $scope.postID= $routeParams.id;
     $scope.email = $routeParams.email;
-    
+    $scope.facebookPostId =  $routeParams.fPostId;
     $http({
             method: 'GET',
             url: "api/post/" + $scope.email + "/" + $scope.postID
@@ -168,6 +183,12 @@ mainApp.controller('postcomments', function($rootScope,$scope,$http,$location, $
             console.log(response.data);
             $scope.postBody = response.data.postBody;
             $scope.comments = response.data.comment;
+        });
+    $http({
+            method: 'GET',
+            url: "api/facecomments/" + $scope.email + "/" + $scope.facebookPostId
+        }).then(function (response) {
+            console.log(response.data);
         });
         
     $scope.add = function() {
@@ -210,4 +231,15 @@ mainApp.controller('postcomments', function($rootScope,$scope,$http,$location, $
             }
         });
     };
+});
+
+
+//inject the twitterService into the controller
+mainApp.controller('TwitterController', function($scope) {
+
+    var facebook_Checked = $scope.connectFacebook;
+    
+    if (facebook_Checked) {
+        window.location.href = "https://schopr9-ece9065-project-schopr9.c9users.io/auth/facebook";
+    }
 });

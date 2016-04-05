@@ -2,7 +2,8 @@ var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var BearerStrategy   = require('passport-http-bearer').Strategy;
-
+var TwitterStrategy = require('passport-twitter').Strategy;
+var LinkedinStrategy = require('passport-linkedin-oauth2').Strategy;
 
 var User            = require('../server/model/user').User;
 var Token            = require('../server/model/user').Token;
@@ -83,4 +84,110 @@ module.exports = function(passport) {
     });
   }
 }));
+
+passport.use(new TwitterStrategy({
+
+        consumerKey        : configAuth.twitterAuth.clientID,
+        consumerSecret    : configAuth.twitterAuth.clientSecret,
+        callbackURL     : configAuth.twitterAuth.callbackURL,
+        passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
+}, 
+	  function(req, token, tokenSecret, profile, done) {
+	    	process.nextTick(function(){
+	    		if (!req.user){
+	    			console.log("Not logged in");
+	    			return done();
+	    		}
+	    		User.findById(req.user.id, function(err, user){
+	    			if(err)
+	    				return done(err);
+	    			if(user) {
+	    				//Need elevated permissions for email in Twitter API. So not getting it
+	    				user.twitter = profile.id;
+	    				user.twitterToken = token;
+	    				user.twitterSecret = tokenSecret;
+
+	    				user.save(function(err){
+	    					if(err)
+	    						throw err;
+	    					return done(null, user);
+	    				})
+	    				console.log("Done adding twitter details");
+	    			}
+	    			else {
+	    				console.log("No user found");
+	    				return done();
+	    			}
+	    		});
+	    	});
+	    }
+	));
+
+passport.use(new FacebookStrategy({
+
+        clientID        : configAuth.facebookAuth.clientID,
+        clientSecret    : configAuth.facebookAuth.clientSecret,
+        callbackURL     : configAuth.facebookAuth.callbackURL,
+        passReqToCallback : true ,
+        profileFields: ['id','emails', 'first_name', 'last_name', 'displayName', 'link', 'photos' ]
+}, 
+	  function(req, accessToken, refreshToken, profile, done) {
+	    	process.nextTick(function(){
+	    		if (!req.user){
+	    			console.log("Not logged in");
+	    			return done();
+	    		}
+	    		User.findById(req.user.id, function(err, user){
+	    			if(err)
+	    				return done(err);
+	    			if(user) {
+	    				//Need elevated permissions for email in Twitter API. So not getting it
+	    				user.facebook = profile.id;
+	    				user.facebookToken = accessToken;
+
+	    				user.save(function(err){
+	    					if(err)
+	    						throw err;
+	    					return done(null, user);
+	    				})
+	    				console.log("Done adding facebook details");
+	    			}
+	    			else {
+	    				console.log("No user found");
+	    				return done();
+	    			}
+	    		});
+	    	});
+	    }
+	));
+	
+		passport.use(new LinkedinStrategy({
+        clientID        : configAuth.linkedinAuth.clientID,
+        clientSecret    : configAuth.linkedinAuth.clientSecret,
+        callbackURL     : configAuth.linkedinAuth.callbackURL,
+	    passReqToCallback: true,
+	    state: true,
+	  },
+	  function(req, accessToken, refreshToken, profile, done) {
+	    		User.findById(req.user.id, function(err, user){
+	    			if(err)
+	    				return done(err);
+	    			if(user) {
+	    				user.linkedin = profile.id;
+	    				user.linkedinToken = accessToken;
+	    				user.save(function(err){
+	    					if(err)
+	    						throw err;
+	    					return done(null, user);
+	    				})
+	    				console.log("Done adding linkedin details");
+	    			}
+	    			else {
+	    				console.log("No user found");
+	    				return done();
+	    			}
+	    		});
+	    	
+	    }
+	));
 };

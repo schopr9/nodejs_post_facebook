@@ -19,6 +19,25 @@
     <div  class="row" ng-controller='postcomments'>
         <div class="col-md-offset-3 col-md-4">
             <h1> {{postBody}}</h1>
+            <h4>facebook comments</h4>
+            <table class="table whitetable">
+                <tbody >
+                <tr><td colSpan="5"><center><h3 ng-model="message">Message:  {{message}}</h3></center></td></tr>
+                <tr>
+                    <td></td>
+                    <td>Comment Body</td>
+                    <td>Comment Date</td>
+                
+                </tr>
+                <tr ng-repeat="comment in comments">
+                    <td><button type="submit" class="btn btn-danger btn-md" ng-click="delete(comment._id)" >Delete</button></td>
+                    <td >{{ comment.commentBody }}</td>
+                    <td>{{ comment.commentDate }}</td>
+                    
+                </tr>
+                </tbody>
+            </table>    
+
             <h4> Comments </h4>
             <table class="table whitetable">
                 <tbody >

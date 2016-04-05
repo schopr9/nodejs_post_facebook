@@ -1,4 +1,10 @@
-
+/*
+   WebProject - ece9065
+   Authors :
+        saurabh chopra - schopr9@uwo.ca
+        Ali javanamrdi - ajavanma@uwo.ca
+*/
+                            
 var express = require('express');
 var app = express();
 var mongoose = require('mongoose');

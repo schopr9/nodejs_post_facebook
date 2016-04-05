@@ -26,11 +26,11 @@
                 <td><!--button type="submit" ng-click="add()" >Add</button--></td>
             </tr>
             <tr ng-repeat="post in posts">
-                <td><button type="submit" class="btn btn-warning btn-md" ng-click="edit(post._id)" >Edit</button></td>
-                <td><button type="submit" class="btn btn-danger btn-md" ng-click="delete(post._id)" >Delete</button></td>
+                <td><button type="submit" class="btn btn-warning btn-md" ng-click="edit(post._id,post.postID)" >Edit</button></td>
+                <td><button type="submit" class="btn btn-danger btn-md" ng-click="delete(post._id,post.postID,post.twitterPostID)" >Delete</button></td>
                 <td >{{ post.postBody }}</td>
                 <td>{{ post.postDate }}</td>
-                <td><button type="submit" class="btn btn-info btn-md" ng-click="manageComment(post._id)" >Comments</button></td>
+                <td><button type="submit" class="btn btn-info btn-md" ng-click="manageComment(post._id,post.postID,post.twitterPostID)" >Comments</button></td>
             </tr>
             </tbody>
         </table>    

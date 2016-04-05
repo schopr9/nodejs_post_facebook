@@ -6,7 +6,7 @@
   "repository": "",
   "author": "saurabh chopra",
   "dependencies": {
-    "async": "~0.2.8",
+    "async": "^0.2.10",
     "bcrypt": "~0.8.1",
     "body-parser": "latest",
     "connect-flash": "~0.1.1",
@@ -14,14 +14,24 @@
     "ejs": "latest",
     "express": "~4.12.3",
     "express-session": "latest",
+    "fb": "^1.0.2",
+    "fbgraph": "^1.1.0",
     "mongoose": "latest",
     "morgan": "~1.5.2",
+    "node-linkedin": "^0.5.3",
     "passport": "~0.2.1",
-    "passport-facebook": "~2.0.0",
+    "passport-facebook": "^2.1.0",
     "passport-google-oauth": "~0.2.0",
     "passport-http-bearer": "^1.0.1",
+    "passport-linkedin-oauth2": "^1.4.0",
     "passport-local": "~1.0.0",
+    "passport-twitter": "^1.0.4",
     "rand-token": "^0.2.1",
-    "socket.io": "~0.9.14"
+    "request": "^2.69.0",
+    "socket.io": "~0.9.14",
+    "step": "0.0.6",
+    "twit": "^2.2.3",
+    "twitter": "^1.2.5",
+    "util": "^0.10.3"
   }
 }
